@@ -1,4 +1,4 @@
-name: Build APK
+name: Build APK Fully Online
 
 on:
   push:
@@ -20,14 +20,25 @@ jobs:
         distribution: temurin
         java-version: 17
 
+    - name: Install Gradle
+      run: |
+        wget https://services.gradle.org/distributions/gradle-8.2-bin.zip
+        unzip gradle-8.2-bin.zip
+        export PATH="$PWD/gradle-8.2/bin:$PATH"
+        gradle -v
+
+    - name: Generate Gradle Wrapper
+      run: |
+        gradle wrapper --gradle-version 8.2
+
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
+
     - name: Download Android SDK
       uses: android-actions/setup-android@v2
       with:
         api-level: 33
         build-tools: "33.0.2"
-
-    - name: Make gradlew executable
-      run: chmod +x ./gradlew
 
     - name: Build Debug APK
       run: ./gradlew assembleDebug
