@@ -1,17 +1,27 @@
 plugins {
     id 'com.android.application'
-    id 'kotlin-android'
-    id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.android' version '1.9.10' apply false
 }
 
 android {
+    namespace 'com.sulaimansu.offlineanimeapp'
     compileSdk 33
+
     defaultConfig {
-        applicationId "com.example.offlineanime"
-        minSdk 31
+        applicationId "com.sulaimansu.offlineanimeapp"
+        minSdk 23
         targetSdk 33
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
     }
 }
 
@@ -19,10 +29,5 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:1.9.10"
     implementation 'androidx.core:core-ktx:1.12.0'
     implementation 'androidx.appcompat:appcompat:1.7.0'
-    implementation 'androidx.room:room-runtime:2.6.0'
-    kapt 'androidx.room:room-compiler:2.6.0'
-    implementation 'io.coil-kt:coil:2.6.0'
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
     implementation 'com.google.android.material:material:1.11.0'
 }
